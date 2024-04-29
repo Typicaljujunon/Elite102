@@ -90,28 +90,28 @@ def create_account():
     save_button = tk.Button(create_account_window, text="Create Account", command=save_account, font=("Calibri", 12))
     save_button.grid(row=5, columnspan=2)
 
-# Function to handle password change
-def change_password(username):
-    def save_new_password():
-        # Retrieving new password from entry field
-        new_password = new_password_entry.get()
-        # Updating password in the database
+# Function to handle pin change
+def change_pin(username):
+    def save_new_pin():
+        # Retrieving new pin from entry field
+        new_pin = new_pin_entry.get()
+        # Updating pin in the database
         cursor = connection.cursor()
-        cursor.execute("UPDATE bankaccounts SET password = %s WHERE username = %s", (new_password, username))
+        cursor.execute("UPDATE bankaccounts SET pin = %s WHERE username = %s", (new_pin, username))
         connection.commit()
-        print("Password changed successfully.")
+        print("Pin changed successfully.")
 
-    # Creating a window for password change
-    change_password_window = tk.Toplevel(logged_in_window)
-    change_password_window.title("Change Password")
+    # Creating a window for pin change
+    change_pin_window = tk.Toplevel(logged_in_window)
+    change_pin_window.title("Change Pin")
 
-    # Creating entry field for new password
-    new_password_label = tk.Label(change_password_window, text="New Password:", font=("Calibri", 12))
-    new_password_label.grid(row=0, column=0)
-    new_password_entry = tk.Entry(change_password_window, show="*", font=("Calibri", 12))
-    new_password_entry.grid(row=0, column=1)
+    # Creating entry field for new pin
+    new_pin_label = tk.Label(change_pin_window, text="New Pin:", font=("Calibri", 12))
+    new_pin_label.grid(row=0, column=0)
+    new_pin_entry = tk.Entry(change_pin_window, show="*", font=("Calibri", 12))
+    new_pin_entry.grid(row=0, column=1)
 
-    save_button = tk.Button(change_password_window, text="Save", command=save_new_password, font=("Calibri", 12))
+    save_button = tk.Button(change_pin_window, text="Save", command=save_new_pin, font=("Calibri", 12))
     save_button.grid(row=1, columnspan=2)
 
 # Function to handle email change
@@ -145,8 +145,8 @@ def change_information(username):
         info = info_combobox.get()
         if info == "Username":
             change_username(username)
-        elif info == "Password":
-            change_password(username)
+        elif info == "pin":
+            change_pin(username)
         elif info == "Email":
             change_email(username)
 
@@ -157,7 +157,7 @@ def change_information(username):
     # Creating a dropdown menu to select information
     info_label = tk.Label(change_info_window, text="Select information to change:", font=("Calibri", 12))
     info_label.grid(row=0, column=0)
-    info_options = ["Username", "Password", "Email"]
+    info_options = ["Username", "pin", "Email"]
     info_combobox = ttk.Combobox(change_info_window, values=info_options, font=("Calibri", 12))
     info_combobox.grid(row=0, column=1)
 
